@@ -1,0 +1,5 @@
+<button class="unit-toggle" (click)="toggleUnit()">
+    <span [class.active]="unit() === 'C'">°C</span>
+    <span class="divider">|</span>
+    <span [class.active]="unit() === 'F'">°F</span>
+</button>

@@ -19,45 +19,19 @@
                 <span class="logo-text">Skye</span>
             </div>
 
-            <div class="search-bar">
-                <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5" />
-                    <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                </svg>
-                <input
-                    type="text"
-                    class="search-input"
-                    placeholder="Search city..."
-                    [(ngModel)]="searchQuery"
-                    (keyup.enter)="onSearch()" />
-                <button class="search-btn" (click)="onSearch()">Go</button>
-            </div>
+            <app-search [(searchQuery)]="searchQuery" (search)="onSearch()"></app-search>
 
-            <button class="unit-toggle" (click)="toggleUnit()">
-                <span [class.active]="unit() === 'C'">°C</span>
-                <span class="divider">|</span>
-                <span [class.active]="unit() === 'F'">°F</span>
-            </button>
+            <app-toggle-unit [(unit)]="unit"></app-toggle-unit>
         </header>
 
         <!-- Loading State -->
         @if (loading()) {
-        <div class="loading-state">
-            <div class="loader">
-                <div class="loader-ring"></div>
-                <div class="loader-ring"></div>
-                <div class="loader-ring"></div>
-            </div>
-            <p>Fetching weather data...</p>
-        </div>
+        <app-loader></app-loader>
         }
 
         <!-- Error State -->
         @if (error() && !loading()) {
-        <div class="error-state">
-            <div class="error-icon">⚡</div>
-            <p>{{ error() }}</p>
-        </div>
+        <app-error [errorMessage]="error()"></app-error>
         }
 
         <!-- Main Content -->

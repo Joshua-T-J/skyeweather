@@ -5,10 +5,23 @@ import { FormsModule } from '@angular/forms';
 import { TitleCasePipe } from '@angular/common';
 import { TodayCard } from '../today-card/today-card';
 import { FiveDayForecast } from '../five-day-forecast/five-day-forecast';
+import { Search } from '../../shared/components/search/search';
+import { Loader } from '../../shared/components/loader/loader';
+import { Error } from '../../shared/components/error/error';
+import { ToggleUnit } from '../../shared/components/toggle-unit/toggle-unit';
 
 @Component({
   selector: 'app-weather',
-  imports: [FormsModule, TitleCasePipe, TodayCard, FiveDayForecast],
+  imports: [
+    FormsModule,
+    TitleCasePipe,
+    TodayCard,
+    FiveDayForecast,
+    Search,
+    Loader,
+    Error,
+    ToggleUnit,
+  ],
   templateUrl: './weather.html',
   styleUrl: './weather.scss',
 })
