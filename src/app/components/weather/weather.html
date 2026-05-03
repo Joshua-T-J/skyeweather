@@ -1,0 +1,114 @@
+<div class="app-shell" [class]="bgClass()">
+    <!-- Ambient background layers -->
+    <div class="bg-layer bg-layer-1"></div>
+    <div class="bg-layer bg-layer-2"></div>
+    <div class="particles">
+        @for (p of [1,2,3,4,5,6,7,8,9,10,11,12]; track $index) {
+        <span class="particle" [attr.data-i]="p"></span>
+        }
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="6" fill="white" opacity="0.9" />
+                    <path d="M14 2v4M14 22v4M2 14h4M22 14h4M5.5 5.5l2.8 2.8M19.7 19.7l2.8 2.8M5.5 22.5l2.8-2.8M19.7 8.3l2.8-2.8" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+                </svg>
+                <span class="logo-text">Skye</span>
+            </div>
+
+            <div class="search-bar">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search city..."
+                    [(ngModel)]="searchQuery"
+                    (keyup.enter)="onSearch()" />
+                <button class="search-btn" (click)="onSearch()">Go</button>
+            </div>
+
+            <button class="unit-toggle" (click)="toggleUnit()">
+                <span [class.active]="unit() === 'C'">°C</span>
+                <span class="divider">|</span>
+                <span [class.active]="unit() === 'F'">°F</span>
+            </button>
+        </header>
+
+        <!-- Loading State -->
+        @if (loading()) {
+        <div class="loading-state">
+            <div class="loader">
+                <div class="loader-ring"></div>
+                <div class="loader-ring"></div>
+                <div class="loader-ring"></div>
+            </div>
+            <p>Fetching weather data...</p>
+        </div>
+        }
+
+        <!-- Error State -->
+        @if (error() && !loading()) {
+        <div class="error-state">
+            <div class="error-icon">⚡</div>
+            <p>{{ error() }}</p>
+        </div>
+        }
+
+        <!-- Main Content -->
+        @if (weatherData() && !loading()) {
+        <main class="main-content">
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-left">
+                    <div class="location-info">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" class="pin-icon">
+                            <path d="M7 1C4.79 1 3 2.79 3 5c0 3.25 4 8 4 8s4-4.75 4-8c0-2.21-1.79-4-4-4zm0 5.5C6.17 6.5 5.5 5.83 5.5 5S6.17 3.5 7 3.5 8.5 4.17 8.5 5 7.83 6.5 7 6.5z" fill="white" opacity="0.8" />
+                        </svg>
+                        <span class="city-name">{{ weatherData()!.name }}, {{ weatherData()!.sys.country }}</span>
+                    </div>
+                    <div class="temp-display">
+                        <span class="temp-number">{{ displayTemp() }}</span>
+                        <span class="temp-unit">°{{ unit() }}</span>
+                    </div>
+                    <div class="weather-desc">{{ weatherData()!.weather[0]?.description | titlecase }}</div>
+                    <div class="feels-like">Feels like {{ displayFeelsLike() }}°</div>
+                    <div class="local-time">{{ localTime() }}</div>
+                    <div class="hi-lo">
+                        <span>↑ {{ getDailyTemp(weatherData()!.main.temp_max) }}°</span>
+                        <span>↓ {{ getDailyTemp(weatherData()!.main.temp_min) }}°</span>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <img
+                        class="weather-icon-hero"
+                        [src]="getWeatherIcon(weatherData()!.weather[0]?.icon || '01d')"
+                        [alt]="weatherData()!.weather[0]?.description" />
+                </div>
+            </section>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn" [class.active]="activeTab() === 'today'" (click)="activeTab.set('today')">Today</button>
+                <button class="tab-btn" [class.active]="activeTab() === 'forecast'" (click)="activeTab.set('forecast')">5-Day</button>
+            </div>
+
+            <!-- Today Tab -->
+            @if (activeTab() === 'today') {
+            <app-today-card [unit]="unit()"></app-today-card>
+            }
+            <!-- Forecast Tab -->
+            @if (activeTab() === 'forecast') {
+            <app-five-day-forecast [unit]="unit()"></app-five-day-forecast>
+            }
+        </main>
+        }
+    </div>
+</div>

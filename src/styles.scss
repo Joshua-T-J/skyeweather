@@ -1,1 +1,767 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:host {
+    display: block;
+}
+
+/* ── App Shell ── */
+.app-shell {
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    position: relative;
+    overflow: hidden;
+    transition: background 1.2s ease;
+}
+
+/* Background themes */
+.bg-default {
+    background: linear-gradient(145deg, #1a2a4a 0%, #0d1b35 100%);
+}
+
+.bg-clear {
+    background: linear-gradient(145deg, #1e6fcc 0%, #0a3d7a 50%, #051d3d 100%);
+}
+
+.bg-cloudy {
+    background: linear-gradient(145deg, #3a4a6e 0%, #1c2a4a 50%, #0d1525 100%);
+}
+
+.bg-rain {
+    background: linear-gradient(145deg, #1a2e4a 0%, #0d1e35 50%, #06101d 100%);
+}
+
+.bg-snow {
+    background: linear-gradient(145deg, #2a3d5e 0%, #3a5080 50%, #1a2a45 100%);
+}
+
+.bg-thunder {
+    background: linear-gradient(145deg, #1a1a3a 0%, #0a0a20 50%, #14001e 100%);
+}
+
+.bg-fog {
+    background: linear-gradient(145deg, #3a4a5e 0%, #2a3548 50%, #1a2235 100%);
+}
+
+/* Ambient layers */
+.bg-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.bg-layer-1 {
+    background: radial-gradient(ellipse 70% 60% at 20% 20%, rgba(100, 160, 255, 0.12) 0%, transparent 70%);
+}
+
+.bg-layer-2 {
+    background: radial-gradient(ellipse 50% 50% at 80% 80%, rgba(80, 120, 220, 0.08) 0%, transparent 60%);
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-particle 8s infinite ease-in-out;
+}
+
+.particle:nth-child(1) {
+    left: 10%;
+    top: 15%;
+    animation-delay: 0s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(2) {
+    left: 25%;
+    top: 40%;
+    animation-delay: 1s;
+    animation-duration: 11s;
+    opacity-initial: 0.4;
+}
+
+.particle:nth-child(3) {
+    left: 60%;
+    top: 10%;
+    animation-delay: 2s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(4) {
+    left: 80%;
+    top: 30%;
+    animation-delay: 3s;
+    animation-duration: 12s;
+}
+
+.particle:nth-child(5) {
+    left: 45%;
+    top: 60%;
+    animation-delay: 1.5s;
+    animation-duration: 10s;
+}
+
+.particle:nth-child(6) {
+    left: 15%;
+    top: 70%;
+    animation-delay: 0.5s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(7) {
+    left: 90%;
+    top: 55%;
+    animation-delay: 4s;
+    animation-duration: 11s;
+}
+
+.particle:nth-child(8) {
+    left: 35%;
+    top: 80%;
+    animation-delay: 2.5s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(9) {
+    left: 70%;
+    top: 75%;
+    animation-delay: 3.5s;
+    animation-duration: 13s;
+}
+
+.particle:nth-child(10) {
+    left: 55%;
+    top: 25%;
+    animation-delay: 0.8s;
+    animation-duration: 10s;
+}
+
+.particle:nth-child(11) {
+    left: 5%;
+    top: 50%;
+    animation-delay: 5s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(12) {
+    left: 95%;
+    top: 15%;
+    animation-delay: 1.2s;
+    animation-duration: 11s;
+}
+
+@keyframes float-particle {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateY(-20px) scale(1.5);
+    }
+}
+
+/* ── Container ── */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 40px;
+    padding: 8px 14px;
+    gap: 8px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.search-bar:focus-within {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.search-icon {
+    color: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.search-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.unit-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.2s;
+}
+
+.unit-toggle:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.unit-toggle .active {
+    color: white;
+    font-weight: 700;
+}
+
+.unit-toggle .divider {
+    opacity: 0.4;
+}
+
+/* ── Loading ── */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0;
+    color: rgba(255, 255, 255, 0.7);
+    gap: 20px;
+}
+
+.loader {
+    position: relative;
+    width: 48px;
+    height: 48px;
+}
+
+.loader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: white;
+    animation: spin 1.2s linear infinite;
+}
+
+.loader-ring:nth-child(2) {
+    inset: 6px;
+    border-top-color: rgba(255, 255, 255, 0.7);
+    animation-delay: 0.15s;
+}
+
+.loader-ring:nth-child(3) {
+    inset: 12px;
+    border-top-color: rgba(255, 255, 255, 0.4);
+    animation-delay: 0.3s;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Error ── */
+.error-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.error-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+/* ── Hero ── */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 20px;
+    animation: fade-up 0.6s ease;
+}
+
+.hero-left {
+    flex: 1;
+}
+
+.hero-right {
+    flex-shrink: 0;
+}
+
+.location-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.pin-icon {
+    flex-shrink: 0;
+}
+
+.city-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.3px;
+}
+
+.temp-display {
+    display: flex;
+    align-items: flex-start;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.temp-number {
+    font-size: 88px;
+    font-weight: 300;
+    color: white;
+    letter-spacing: -3px;
+    line-height: 1;
+}
+
+.temp-unit {
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 14px;
+    font-weight: 300;
+}
+
+.weather-desc {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.feels-like {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 4px;
+}
+
+.local-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 10px;
+}
+
+.hi-lo {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 500;
+}
+
+.weather-icon-hero {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+    animation: float-icon 4s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* ── Tabs ── */
+.tab-nav {
+    display: flex;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 18px;
+    animation: fade-up 0.6s ease 0.1s both;
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    font-weight: 600;
+}
+
+/* ── Hourly ── */
+.hourly-section {
+    margin-bottom: 16px;
+    animation: fade-up 0.6s ease 0.15s both;
+}
+
+.hourly-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 2px 8px;
+    scrollbar-width: none;
+}
+
+.hourly-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.hourly-card {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 12px 14px;
+    transition: background 0.2s;
+}
+
+.hourly-card:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.hourly-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+}
+
+.hourly-icon {
+    width: 36px;
+    height: 36px;
+}
+
+.hourly-temp {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+/* ── Metrics Grid ── */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+    animation: fade-up 0.6s ease 0.2s both;
+}
+
+.metric-card {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 20px;
+    padding: 18px 16px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.metric-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.metric-icon {
+    margin-bottom: 10px;
+}
+
+.metric-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+}
+
+.metric-sub {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 2px;
+}
+
+.metric-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.metric-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #60b3ff, #a0d8ff);
+    transition: width 0.8s ease;
+}
+
+/* ── Sun Section ── */
+.sun-section {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+    animation: fade-up 0.6s ease 0.25s both;
+}
+
+.sun-card {
+    flex: 1;
+    text-align: center;
+}
+
+.sun-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 6px;
+}
+
+.sun-time {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    font-family: 'DM Mono', monospace;
+}
+
+.sun-arc-wrapper {
+    flex: 1.2;
+}
+
+.sun-arc {
+    width: 100%;
+}
+
+/* ── Forecast ── */
+.forecast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: fade-up 0.5s ease;
+}
+
+.forecast-row {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 16px;
+    padding: 14px 16px;
+    gap: 12px;
+    animation: fade-up 0.5s ease both;
+    transition: background 0.2s;
+}
+
+.forecast-row:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.forecast-day {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    width: 42px;
+    flex-shrink: 0;
+}
+
+.forecast-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.forecast-desc {
+    flex: 1;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.forecast-temps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.forecast-max {
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    min-width: 32px;
+    text-align: right;
+}
+
+.forecast-min {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    min-width: 32px;
+}
+
+.temp-bar-wrap {
+    width: 50px;
+}
+
+.temp-bar-bg {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+.temp-bar-fill {
+    height: 100%;
+    width: 60%;
+    background: linear-gradient(90deg, #5bb8ff, #c3e8ff);
+    border-radius: 3px;
+}
+
+/* ── Animations ── */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Responsive ── */
+@media (max-width: 400px) {
+    .temp-number {
+        font-size: 72px;
+    }
+
+    .weather-icon-hero {
+        width: 90px;
+        height: 90px;
+    }
+
+    .metrics-grid {
+        gap: 8px;
+    }
+
+    .metric-value {
+        font-size: 19px;
+    }
+}
