@@ -1,9 +1,0 @@
-<div class="hourly-scroll">
-    @for (h of hourlyForecast(); track $index; let i = $index) {
-    <div class="hourly-card" [class.now]="i === 0">
-        <span class="hourly-time">{{ i === 0 ? 'Now' : h.time }}</span>
-        <img [src]="getWeatherIcon(h.icon)" [alt]="h.description" class="hourly-icon" />
-        <span class="hourly-temp">{{ h.temp }}°</span>
-    </div>
-    }
-</div>
