@@ -10,10 +10,9 @@ import { TitleCasePipe } from '@angular/common';
   styleUrl: './five-day-forecast.scss',
 })
 export class FiveDayForecast {
-  readonly unit = input.required<Unit>();
-
   private weatherService = inject(Weather);
 
+  readonly unit = computed(() => this.weatherService.unit());
   private readonly forecastData = computed(() => this.weatherService.forecastData());
 
   protected readonly dailyForecasts = computed<DailyForecast[]>(() => {

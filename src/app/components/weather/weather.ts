@@ -2,13 +2,14 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { DailyForecast, ForecastItem, Unit } from '../../models/weather.model';
 import { Weather as WeatherService } from '../../services/weather';
 import { FormsModule } from '@angular/forms';
-import { TitleCasePipe } from '@angular/common';
+import { NgTemplateOutlet, TitleCasePipe } from '@angular/common';
 import { TodayCard } from '../today-card/today-card';
 import { FiveDayForecast } from '../five-day-forecast/five-day-forecast';
 import { Search } from '../../shared/components/search/search';
 import { Loader } from '../../shared/components/loader/loader';
 import { Error } from '../../shared/components/error/error';
 import { ToggleUnit } from '../../shared/components/toggle-unit/toggle-unit';
+import { HourlyForecast } from '../today-card/hourly-forecast/hourly-forecast';
 
 @Component({
   selector: 'app-weather',
@@ -21,6 +22,8 @@ import { ToggleUnit } from '../../shared/components/toggle-unit/toggle-unit';
     Loader,
     Error,
     ToggleUnit,
+    HourlyForecast,
+    NgTemplateOutlet,
   ],
   templateUrl: './weather.html',
   styleUrl: './weather.scss',
@@ -69,6 +72,26 @@ export class Weather {
     const utc = Date.now() + new Date().getTimezoneOffset() * 60000;
     const local = new Date(utc + weather.timezone * 1000);
     return local.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  });
+
+  protected readonly sunriseTime = computed(() => {
+    const weather = this.weatherData();
+    if (!weather) return '';
+    return new Date(weather.sys.sunrise * 1000).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  });
+
+  protected readonly sunsetTime = computed(() => {
+    const weather = this.weatherData();
+    if (!weather) return '';
+    return new Date(weather.sys.sunset * 1000).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
   });
 
   ngOnInit() {

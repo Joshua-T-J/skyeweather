@@ -5,7 +5,7 @@ import { HourlyForecast } from './hourly-forecast/hourly-forecast';
 
 @Component({
   selector: 'app-today-card',
-  imports: [HourlyForecast],
+  imports: [],
   templateUrl: './today-card.html',
   styleUrl: './today-card.scss',
 })
