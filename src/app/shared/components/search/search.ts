@@ -1,9 +1,10 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
-  imports: [FormsModule],
+  imports: [FormsModule, NgTemplateOutlet],
   templateUrl: './search.html',
   styleUrl: './search.scss',
 })

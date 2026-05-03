@@ -272,21 +272,24 @@
 }
 
 .search-btn {
-    background: rgba(255, 255, 255, .18);
+    background: transparent;
     border: none;
     border-radius: 20px;
     color: white;
     font-family: 'Outfit', sans-serif;
     font-size: 13px;
     font-weight: 600;
-    padding: 6px 14px;
     cursor: pointer;
-    transition: background .2s;
+    transition: all .2s;
     white-space: nowrap;
 }
 
-.search-btn:hover {
-    background: rgba(255, 255, 255, .32);
+.search-icon {
+    transition: all .2s;
+}
+
+.search-btn:hover .search-icon {
+    color: rgba(255, 255, 255);
 }
 
 .unit-toggle {
