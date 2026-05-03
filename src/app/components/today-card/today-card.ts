@@ -1,38 +1,19 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { Weather } from '../../services/weather';
 import { Unit } from '../../models/weather.model';
+import { HourlyForecast } from './hourly-forecast/hourly-forecast';
 
 @Component({
   selector: 'app-today-card',
-  imports: [],
+  imports: [HourlyForecast],
   templateUrl: './today-card.html',
   styleUrl: './today-card.scss',
 })
 export class TodayCard {
-  readonly unit = input.required<Unit>();
-
   private weatherService = inject(Weather);
 
-  private readonly forecastData = computed(() => this.weatherService.forecastData());
   protected readonly weatherData = computed(() => this.weatherService.weatherData());
-
-  protected readonly hourlyForecast = computed(() => {
-    const forecast = this.forecastData();
-    if (!forecast) return [];
-    return forecast.list.slice(0, 8).map((item) => ({
-      time: new Date(item.dt * 1000).toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true,
-      }),
-      temp:
-        this.unit() === 'C'
-          ? Math.round(item.main.temp)
-          : Math.round((item.main.temp * 9) / 5 + 32),
-      icon: item.weather[0]?.icon || '01d',
-      description: item.weather[0]?.description || '',
-    }));
-  });
+  protected readonly unit = computed(() => this.weatherService.unit());
 
   protected readonly displayFeelsLike = computed(() => {
     const weather = this.weatherData();
@@ -74,8 +55,4 @@ export class TodayCard {
       hour12: true,
     });
   });
-
-  getWeatherIcon(iconCode: string): string {
-    return this.weatherService.getWeatherIcon(iconCode);
-  }
 }

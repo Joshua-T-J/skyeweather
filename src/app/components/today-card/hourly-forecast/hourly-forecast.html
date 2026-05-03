@@ -1,0 +1,9 @@
+<div class="hourly-scroll">
+    @for (h of hourlyForecast(); track $index) {
+    <div class="hourly-card">
+        <span class="hourly-time">{{ h.time }}</span>
+        <img [src]="getWeatherIcon(h.icon)" [alt]="h.description" class="hourly-icon" />
+        <span class="hourly-temp">{{ h.temp }}°</span>
+    </div>
+    }
+</div>

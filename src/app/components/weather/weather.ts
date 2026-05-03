@@ -124,6 +124,10 @@ export class Weather {
     });
   }
 
+  protected onUnitChange(newUnit: Unit) {
+    this.weatherService.setUnit(newUnit);
+  }
+
   getWeatherIcon(iconCode: string): string {
     return this.weatherService.getWeatherIcon(iconCode);
   }

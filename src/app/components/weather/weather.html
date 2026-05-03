@@ -21,7 +21,7 @@
 
             <app-search [(searchQuery)]="searchQuery" (search)="onSearch()"></app-search>
 
-            <app-toggle-unit [(unit)]="unit"></app-toggle-unit>
+            <app-toggle-unit [(unit)]="unit" (unitChange)="onUnitChange($event)"></app-toggle-unit>
         </header>
 
         <!-- Loading State -->
@@ -76,7 +76,7 @@
 
             <!-- Today Tab -->
             @if (activeTab() === 'today') {
-            <app-today-card [unit]="unit()"></app-today-card>
+            <app-today-card></app-today-card>
             }
             <!-- Forecast Tab -->
             @if (activeTab() === 'forecast') {

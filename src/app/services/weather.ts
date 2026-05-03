@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { WeatherData, ForecastData } from '../models/weather.model';
+import { WeatherData, ForecastData, Unit } from '../models/weather.model';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -9,17 +9,20 @@ import { environment } from '../../environments/environment.development';
 })
 export class Weather {
   private http = inject(HttpClient);
-  private baseUrl = 'https://api.openweathermap.org/data/2.5';
-  private apiKey = environment.apiKey;
-  private _forecastData = signal<ForecastData | null>(null);
-  private _weatherData = signal<WeatherData | null>(null);
-  public _loading = signal(false);
+  private readonly baseUrl = 'https://api.openweathermap.org/data/2.5';
+  private readonly apiKey = environment.apiKey;
+  private readonly _forecastData = signal<ForecastData | null>(null);
+  private readonly _weatherData = signal<WeatherData | null>(null);
+  private readonly _loading = signal(false);
+  private readonly _unit = signal<Unit>('C');
 
-  public weatherData = computed(() => Object.freeze(this._weatherData()));
+  public readonly unit = computed(() => this._unit());
 
-  public forecastData = computed(() => Object.freeze(this._forecastData()));
+  public readonly weatherData = computed(() => Object.freeze(this._weatherData()));
 
-  public loading = computed(() => this._loading());
+  public readonly forecastData = computed(() => Object.freeze(this._forecastData()));
+
+  public readonly loading = computed(() => this._loading());
 
   setWeatherData(data: WeatherData | null) {
     this._weatherData.set(data);
@@ -31,6 +34,10 @@ export class Weather {
 
   setForecastData(data: ForecastData | null) {
     this._forecastData.set(data);
+  }
+
+  setUnit(unit: Unit) {
+    this._unit.set(unit);
   }
 
   getWeatherByCity(city: string): Observable<WeatherData> {
